@@ -7,7 +7,6 @@
 
     <title>Your Soccer Games</title>
     <!-- Styles -->
-    {{-- <link href="{{ asset('build/assets/app-5f4b8c8c.css') }}" rel="stylesheet"> --}}
     @vite('resources/js/app.js')
 
     <link href="{{ asset('css/global.css') }}" rel="stylesheet">
