@@ -288,7 +288,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <a href="{{ route('players.older') }}" class="nav-link li-player-older">
                                             <i class="fas fa-baseball-ball  nav-icon"></i>
                                             <p>
-                                                Encient Joueurs
+                                                Anciens joueurs
                                                 @if ($older_player > 0)
                                                     <span class="right badge badge-danger">{{ $older_player }}</span>
                                                 @endif

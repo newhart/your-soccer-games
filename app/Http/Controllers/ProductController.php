@@ -14,8 +14,6 @@ use App\Models\VideoMatch;
 use App\Services\ProductSearchService;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Route;
 
 class ProductController extends Controller
 {
@@ -260,7 +258,7 @@ class ProductController extends Controller
             $prix_hight_light = (new PrixMatch())->where('id', 2)->newQuery()->first();
             $total = session()->get('total');
             $token = session()->get('token_player', null);
-            if ($token && count($cart) === 1) {
+            if ($token && count($cart) === 1 && $product->user_id === 1) {
                 $total  = 0;
             } else {
                 $total = $cart[$id]['complet_match'] ? $total + $prix_match_complet['prix'] : ($cart[$id]['hight_light'] ? $total + $prix_hight_light['prix'] : 0);
