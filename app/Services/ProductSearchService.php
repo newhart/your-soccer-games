@@ -17,6 +17,7 @@ class ProductSearchService
 {
     public static function productSearch(Request $request,  int $user_id = 1): array
     {
+
         $latest_date = Product::query()
             ->where('user_id', $user_id)
             ->latest('date_match')
@@ -27,15 +28,22 @@ class ProductSearchService
                 $q->with('prix_match');
             });
 
-        if($user_id !== 1){
-            $query = $query->where('user_id' , $user_id);
+        if ($user_id !== 1) {
+            $query = $query->where('user_id', $user_id);
         }
 
         $dates = [];
         $all_date_for_play = [];
-        if ($request->get('player')) {
-            $player  = Player::where('full_name', 'LIKE', '%' . $request->get('player') . '%')->with('country')->first();
-            if ($player){
+        if ($request->get('player') || $request->get('token')) {
+            $token = $request->get('token');
+            $value_token = decrypt($token);
+            session()->put('token_player', $value_token);
+            if ($token && $value_token) {
+                $player  = Player::where('full_name', 'LIKE', '%' . $value_token . '%')->with('country')->first();
+            } else {
+                $player  = Player::where('full_name', 'LIKE', '%' . $request->get('player') . '%')->with('country')->first();
+            }
+            if ($player) {
                 $club_result_players = DB::select(
                     "SELECT cr.id , cr.competition_game_id , competition_games.duration_game , competition_games.game_date,club_result_player.player_id ,club_result_player.substitute,
                 clubs.name , clubs.short_name , clubs.full_name, variation_clubs.club_id  as id_club
@@ -71,7 +79,7 @@ class ProductSearchService
             if (count($dates) === 0) {
                 $dates = [now(), now()];
             }
-            if(count($all_date_for_play)){
+            if (count($all_date_for_play)) {
                 // get in the product all data equals of the date and name of the club or of the country
                 $query = $query->where(function ($query) use ($all_date_for_play) {
                     $query->where(function ($query) use ($all_date_for_play) {
@@ -82,7 +90,7 @@ class ProductSearchService
                         $query->orWhereRaw(implode(' OR ', $conditions));
                     });
                 });
-            }else {
+            } else {
                 $query = $query->where('date_match', 'false');
             }
         }

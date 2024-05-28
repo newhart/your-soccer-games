@@ -366,6 +366,9 @@
     @if (session('error'))
         @include('partials.message')
     @endif
+    @if (session('success'))
+        @include('partials.success')
+    @endif
     <!-- End Footer -->
     <!--
     - #GO TO TOP

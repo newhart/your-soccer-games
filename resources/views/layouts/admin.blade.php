@@ -285,6 +285,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <li class="nav-item menu-open">
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
+                                        <a href="{{ route('players.older') }}" class="nav-link li-player-older">
+                                            <i class="fas fa-baseball-ball  nav-icon"></i>
+                                            <p>
+                                                Encient Joueurs
+                                                @if ($older_player > 0)
+                                                    <span class="right badge badge-danger">{{ $older_player }}</span>
+                                                @endif
+                                            </p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
+                        @if (auth()->user()->type === 'Admin')
+                            <li class="nav-item menu-open">
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
                                         <a href="{{ route('disk.index') }}" class="nav-link li-commandes">
                                             <i class="fas fa-baseball-ball  nav-icon"></i>
                                             <p>Gestion de disque</p>
@@ -423,6 +440,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         }
         if (window.location.href.indexOf("/list-commandes") > -1) {
             document.getElementsByClassName("li-commandes")[0].classList.add('active');
+        }
+        if (window.location.href.indexOf("/older") > -1) {
+            document.getElementsByClassName("li-player-older")[0].classList.add('active');
         }
         if (window.location.href.indexOf("/gestion-prix") > -1) {
             document.getElementsByClassName("li-prix")[0].classList.add('active');

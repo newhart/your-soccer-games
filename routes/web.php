@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\OlderPlayerController as AdminOlderPlayerController;
 use App\Http\Controllers\ClubController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -12,6 +13,7 @@ use App\Http\Controllers\CompetionController;
 use App\Http\Controllers\DiskController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\MomentMatchController;
+use App\Http\Controllers\OlderPLayerController;
 use App\Http\Controllers\PrixMatchController;
 use App\Http\Controllers\SendingEmailController;
 use App\Http\Controllers\TempController;
@@ -79,6 +81,9 @@ Route::get('admin/clubs', [ClubController::class, 'index'])->name('clubs.index')
 Route::put('/admin/clubs/change', [ClubController::class, 'changeName'])->name('clubs.change')->middleware('auth');
 // Players resource
 Route::get('/players', [PlayerController::class, 'index'])->name('players')->middleware('auth');
+Route::get('/older', [AdminOlderPlayerController::class, 'index'])->name('players.older')->middleware('auth');
+Route::post('/older/validate/{id}', [AdminOlderPlayerController::class, 'validate_older_player'])->name('players.older.validate')->middleware('auth');
+Route::post('/players/older/delete/{id}', [AdminOlderPlayerController::class, 'destroy'])->name('players.older.delete')->middleware('auth');
 Route::get('/players/search', [PlayerController::class, 'search'])->name('players.search');
 Route::post('/players/store', [PlayerController::class, 'store'])->name('players.store')->middleware('auth');
 Route::post('/players/update/{id}', [PlayerController::class, 'update'])->name('players.update')->middleware('auth');
@@ -143,3 +148,8 @@ Route::get('/home/moment', [MomentMatchController::class, 'index'])->name('momen
 Route::post('moment/video/create', [MomentMatchController::class, 'storeVideo'])->name('create.video')->middleware('auth');
 Route::post('moment/video/update/{videoMatch}', [MomentMatchController::class, 'updateVideo'])->name('update.video')->middleware('auth');
 Route::post('moment/video/delete/{videoMatch}', [MomentMatchController::class, 'deleteVideo'])->name('delete.video')->middleware('auth');
+
+
+// Route older player
+Route::get('/free-player-older', [OlderPLayerController::class, 'index'])->name('older.player');
+Route::post('/free-player-older-store', [OlderPLayerController::class, 'store'])->name('older.player.store');

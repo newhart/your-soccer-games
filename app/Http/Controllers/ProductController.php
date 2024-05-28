@@ -259,7 +259,14 @@ class ProductController extends Controller
             $prix_match_complet = (new PrixMatch())->where('id', 1)->newQuery()->first();
             $prix_hight_light = (new PrixMatch())->where('id', 2)->newQuery()->first();
             $total = session()->get('total');
-            session()->put('total', $cart[$id]['complet_match'] ? $total + $prix_match_complet['prix'] : ($cart[$id]['hight_light'] ? $total + $prix_hight_light['prix'] : 0));
+            $token = session()->get('token_player', null);
+            if ($token && count($cart) === 1) {
+                $total  = 0;
+            } else {
+                $total = $cart[$id]['complet_match'] ? $total + $prix_match_complet['prix'] : ($cart[$id]['hight_light'] ? $total + $prix_hight_light['prix'] : 0);
+            }
+            session()->put('total', $total);
+            session()->put('token_player', null);
         }
 
         session()->put('cart', $cart);
