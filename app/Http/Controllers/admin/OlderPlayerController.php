@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Mail\OlderEmail;
+use App\Mail\PlusInfoEmail;
 use App\Models\OlderPlayer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -51,5 +52,12 @@ class OlderPlayerController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
+    }
+
+    public function plus_info(Request $request)
+    {
+        $player = OlderPlayer::query()->where('id', $request['id'])->first();
+        Mail::to($player->email)->send(new PlusInfoEmail($player));
+        return redirect()->back()->with('success', 'Demande envoyer avec success');
     }
 }

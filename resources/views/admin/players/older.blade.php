@@ -279,8 +279,16 @@
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary"
                                                                         data-bs-dismiss="modal">Fermer</button>
-                                                                    <button type="button" class="btn btn-primary"
-                                                                        data-bs-dismiss="modal">Plus d'information</button>
+
+                                                                    <form
+                                                                        action="{{ route('older.player.plus_info', ['id' => $player->id]) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary">Plus
+                                                                            d'information</button>
+                                                                    </form>
+
                                                                 </div>
                                                             </div>
                                                         </div>

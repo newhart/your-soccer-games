@@ -152,4 +152,8 @@ Route::post('moment/video/delete/{videoMatch}', [MomentMatchController::class, '
 
 // Route older player
 Route::get('/free-player-older', [OlderPLayerController::class, 'index'])->name('older.player');
+Route::get('/free-player-older/edit/{olderPlayer}', [OlderPLayerController::class, 'edit'])->name('older.player.edit');
 Route::post('/free-player-older-store', [OlderPLayerController::class, 'store'])->name('older.player.store');
+Route::put('/free-player-older/{olderPlayer}', [OlderPLayerController::class, 'update'])->name('older.player.update');
+
+Route::post('/plus-info/{id}', [OlderPLayerController::class, 'plus_info'])->name('older.player.plus_info');

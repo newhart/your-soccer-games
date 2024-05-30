@@ -55,18 +55,17 @@
                                     <td style="color:#153643;">
                                         <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">
                                             Bonjour {{ $olderPlayer->name }},</h1>
-                                        <p
-                                            style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                                            Voici le liens pour vos liste matchs
-                                        </p>
+                                        <p>Nous avons reçu vos informations, mais certaines d'entre elles ne sont pas
+                                            très claires. Pourriez-vous les vérifier et nous les renvoyer ?</p>
+                                        <p>Cliquez sur le lien ci-dessous pour mettre à jour vos informations :</p>
 
                                         <form method="get" class="modal-body">
                                             @csrf
                                             <div
                                                 style="margin: 5px 0; display:flex; align-items:center; justify-content: center;">
-                                                <a href="{{ route('matchs', ['token' => $olderPlayer->token]) }}"
-                                                    target="_blank" class="btn-btn-primary">
-                                                    Veuillez cliquez ici
+                                                <a href="{{ route('older.player.edit', $olderPlayer) }}" target="_blank"
+                                                    class="btn-btn-primary">
+                                                    Mettre à jour mes informations
                                                 </a>
                                             </div>
                                         </form>
