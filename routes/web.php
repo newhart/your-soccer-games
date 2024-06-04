@@ -19,8 +19,6 @@ use App\Http\Controllers\SendingEmailController;
 use App\Http\Controllers\TempController;
 use App\Http\Controllers\UserPartenaireController;
 
-// use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\Http;
 
 Route::get('/', [ProductController::class, 'index'])->name('index');
 Route::get('/show/{id}', [ProductController::class, 'show']);
@@ -75,8 +73,8 @@ Route::get('competition/search', [CompetionController::class, 'search'])->name('
 //country search
 Route::get('/country/search', [CountryController::class, 'search'])->name('club.country');
 // club search
-Route::get('club/search', [ClubController::class, 'search'])->name('club.search');
-// club ressource
+Route::get('/club/search', [ClubController::class, 'search'])->name('club.search');
+// club ress/ource
 Route::get('admin/clubs', [ClubController::class, 'index'])->name('clubs.index')->middleware('auth');
 Route::put('/admin/clubs/change', [ClubController::class, 'changeName'])->name('clubs.change')->middleware('auth');
 // Players resource
@@ -145,9 +143,9 @@ Route::delete('/disk/user/{disk}', [DiskController::class, 'delete'])->name('dis
 
 
 Route::get('/home/moment', [MomentMatchController::class, 'index'])->name('moment.index')->middleware('auth');
-Route::post('moment/video/create', [MomentMatchController::class, 'storeVideo'])->name('create.video')->middleware('auth');
-Route::post('moment/video/update/{videoMatch}', [MomentMatchController::class, 'updateVideo'])->name('update.video')->middleware('auth');
-Route::post('moment/video/delete/{videoMatch}', [MomentMatchController::class, 'deleteVideo'])->name('delete.video')->middleware('auth');
+Route::post('/moment/video/create', [MomentMatchController::class, 'storeVideo'])->name('create.video')->middleware('auth');
+Route::post('/moment/video/update/{videoMatch}', [MomentMatchController::class, 'updateVideo'])->name('update.video')->middleware('auth');
+Route::post('/moment/video/delete/{videoMatch}', [MomentMatchController::class, 'deleteVideo'])->name('delete.video')->middleware('auth');
 
 
 // Route older player
