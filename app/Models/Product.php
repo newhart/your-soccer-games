@@ -42,4 +42,9 @@ class Product extends Model
     {
         return $this->belongsTo(Moment::class);
     }
+
+    public function olderPlayer(): HasOne
+    {
+        return $this->hasOne(OlderPlayer::class);
+    }
 }

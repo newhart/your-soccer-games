@@ -25,7 +25,6 @@ class OlderPlayerRequest extends FormRequest
             'email' => ['required', 'email'],
             'whatsapp' => ['required'],
             'langue' => ['min:5', 'required'],
-            'name' => ['min:3', 'required'],
             'photo' => ['required', 'image']
         ];
     }

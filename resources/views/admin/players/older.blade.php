@@ -64,7 +64,6 @@
                                     <tr>
                                         <th scope="col">Photo</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Nom</th>
                                         <th scope="col">Numéro whatsapp</th>
                                         <th scope="col">Langue</th>
                                         <th scope="col">Status</th>
@@ -78,7 +77,6 @@
                                                     alt="real_barc">
                                             </th>
                                             <td>{{ $player->email }}</td>
-                                            <td>{{ $player->name }}</td>
                                             <td>{{ $player->whatsapp }}</td>
                                             <td>{{ $player->langue }}</td>
                                             <td>
@@ -276,6 +274,69 @@
                                                                         </p>
                                                                     </div>
                                                                 </div>
+
+                                                                <hr class="mt-3">
+
+                                                                @if ($player->product)
+                                                                    <div class="details my-3">
+                                                                        <div
+                                                                            class="d-flex align-center justify-content-between">
+                                                                            <p class="font-weight-bold">
+                                                                                Match
+                                                                            </p>
+                                                                            <p>
+                                                                                {{ $player?->product?->residence }} VS
+                                                                                {{ $player?->product?->visitor }}
+                                                                            </p>
+                                                                        </div>
+                                                                        <div
+                                                                            class="d-flex align-center justify-content-between">
+                                                                            <p class="font-weight-bold">
+                                                                                Compétition
+                                                                            </p>
+                                                                            <p>
+                                                                                {{ $player?->product?->competition }}
+                                                                            </p>
+                                                                        </div>
+                                                                        <div
+                                                                            class="d-flex align-center justify-content-between">
+                                                                            <p class="font-weight-bold">
+                                                                                Numéro disque
+                                                                            </p>
+                                                                            <p>
+                                                                                {{ $player?->product?->n_disque }}
+                                                                            </p>
+                                                                        </div>
+                                                                        <div
+                                                                            class="d-flex align-center justify-content-between">
+                                                                            <p class="font-weight-bold">
+                                                                                Date de match
+                                                                            </p>
+                                                                            <p>
+                                                                                @if ($player?->product?->date_match === '2009-01-01')
+                                                                                    {{ $player?->product?->saison }}
+                                                                                @else
+                                                                                    {{ $player?->product?->date_match }}
+                                                                                @endif
+                                                                            </p>
+                                                                        </div>
+                                                                        <div
+                                                                            class="d-flex align-center justify-content-between">
+                                                                            <p class="font-weight-bold">
+                                                                                Score
+                                                                            </p>
+                                                                            <p>
+                                                                                @if ($player?->product?->date_match === '2009-01-01')
+                                                                                    {{ $player?->product?->saison }}
+                                                                                @else
+                                                                                    {{ $player?->product?->result }}
+                                                                                @endif
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+
+
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary"
                                                                         data-bs-dismiss="modal">Fermer</button>

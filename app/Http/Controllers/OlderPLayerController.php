@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OlderPlayerRequest;
 use App\Mail\PlusInfoEmail;
 use App\Models\OlderPlayer;
+use App\Models\Player;
+use App\Models\Product;
+use App\Services\ProductSearchService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -12,10 +15,30 @@ use Illuminate\Support\Facades\Storage;
 
 class OlderPLayerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $player = null;
-        return view('player.older', compact(['player']));
+        $token = null;
+        $data =  [
+            'all_products' => [],
+            'date_interval' => [],
+        ];
+        if ($request->get('player') && $request->get('player') !== '') {
+            $player_find  = Player::where('full_name', 'LIKE', '%' . $request->get('player') . '%')->with('country')->first();
+            $token = encrypt($player_find->id);
+            session()->put('token_player', $token);
+            session()->put('player', $player_find);
+            $data = ProductSearchService::productSearch($request, 1);
+        }
+
+        if ($request->get('item')) {
+            $product = Product::find($request->get('item'));
+            session()->put('item', $product);
+        }
+
+
+        $data = array_merge(['player' => $player, 'token' => $token], $data);
+        return view('player.older', $data);
     }
 
     public function edit(OlderPlayer $olderPlayer)
@@ -47,7 +70,9 @@ class OlderPLayerController extends Controller
         }
         try {
             $olderPlayer = new OlderPlayer();
-            OlderPlayer::create($this->extractData($olderPlayer, $request));
+            $olderPlayer = OlderPlayer::create($this->extractData($olderPlayer, $request));
+            $item = session()->get('item');
+            $olderPlayer->product()->associate($item)->save();
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }

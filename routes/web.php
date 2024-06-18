@@ -28,14 +28,7 @@ Route::get('/paiment', function () {
     $total = session()->get('total');
     return view('front.paiment', compact('total'));
 });
-// Route::get('/test', function (Request $request) {
-//     $apiKey = env('IPIP_KEY', '');
-//     $ip = $request->ip();
-//     $response = Http::get("http://api.ipstack.com/$ip?access_key=$apiKey");
-//     if ($response->successful()) {
-//         dd($response);
-//     }
-// });
+
 
 Route::get('change-language', [LanguageController::class,  'changeLanguage'])->name('change.language');
 Route::post('sendEmail', [TempController::class, 'sendEmail'])->name('temp.sendemail');

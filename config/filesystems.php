@@ -67,6 +67,12 @@ return [
             'url' => env('APP_URL') . '/public',
             'visibility' => 'public',
         ],
+        'players' => [
+            'driver' => 'local',
+            'root' => public_path('img/players'),
+            'url' => env('APP_URL') . '/public',
+            'visibility' => 'public',
+        ],
 
     ],
 

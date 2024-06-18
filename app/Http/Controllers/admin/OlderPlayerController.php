@@ -14,9 +14,13 @@ class OlderPlayerController extends Controller
 {
     public function index()
     {
-        $players  = OlderPlayer::paginate(15);
+        $players  = OlderPlayer::latest()
+            ->with('product')
+            ->paginate(15);
         $search = null;
-        return view('admin.players.older', compact(['players', 'search']));
+        // get session item here
+        $item  = session()->get('item');
+        return view('admin.players.older', compact(['players', 'search', 'item']));
     }
 
     public function destroy(Request $request)
